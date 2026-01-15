@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -8,33 +8,19 @@ services:
     ports:
       - "80:80"
     environment:
-      - DB_HOST=${DB_HOST:-db}
+      - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT:-3306}
-      - DB_NAME=${DB_NAME:-gmoplus_global}
-      - DB_USER=${DB_USER:-gmoplus}
-      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - DB_NAME=${DB_NAME:-global_gmoplus}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
       - DB_PREFIX=${DB_PREFIX:-fl_}
       - APP_URL=${APP_URL:-https://global.gmoplus.com}
       - REDIS_HOST=${REDIS_HOST:-redis}
     depends_on:
-      - db
       - redis
     volumes:
       - file_storage:/var/www/html/files
       - tmp_storage:/var/www/html/tmp
-
-  db:
-    image: mariadb:10.6
-    container_name: gmoplus-global-db
-    restart: unless-stopped
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootsecret}
-      - MYSQL_DATABASE=${DB_NAME:-gmoplus_global}
-      - MYSQL_USER=${DB_USER:-gmoplus}
-      - MYSQL_PASSWORD=${DB_PASSWORD:-secret}
-    volumes:
-      - db_data:/var/lib/mysql
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   redis:
     image: redis:alpine
