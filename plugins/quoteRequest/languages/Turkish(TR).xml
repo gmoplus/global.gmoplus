@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+    <item key="quote_request_title" type="phrase">Teklif İste</item>
+    <item key="quote_request_button" type="phrase">Teklif Al</item>
+    <item key="quote_request_name" type="phrase">Ad Soyad</item>
+    <item key="quote_request_email" type="phrase">E-posta Adresi</item>
+    <item key="quote_request_phone" type="phrase">Telefon Numarası</item>
+    <item key="quote_request_position" type="phrase">Pozisyon/Yetki</item>
+    <item key="quote_request_description" type="phrase">Açıklama</item>
+    <item key="quote_request_file" type="phrase">Dosya Yükle (İsteğe bağlı)</item>
+    <item key="quote_request_send" type="phrase">Teklif Gönder</item>
+    <item key="quote_request_success" type="phrase">Teklif isteğiniz başarıyla gönderildi!</item>
+    <item key="quote_request_error" type="phrase">Talebiniz gönderilirken bir hata oluştu.</item>
+    <item key="quote_request_login_required" type="phrase">Teklif istemek için lütfen giriş yapın.</item>
+    
+    <!-- Admin Phrases -->
+    <item key="quote_requests_menu" type="phrase">Teklif Talepleri</item>
+    <item key="quote_requests_title" type="phrase">Teklif Talepleri Yönetimi</item>
+    <item key="quote_request_view" type="phrase">Teklif Talebini Görüntüle</item>
+    <item key="quote_request_reply" type="phrase">Teklif Talebine Yanıt Ver</item>
+    <item key="quote_request_delete" type="phrase">Teklif Talebini Sil</item>
+    <item key="quote_request_status_new" type="phrase">Yeni</item>
+    <item key="quote_request_status_viewed" type="phrase">Görüntülendi</item>
+    <item key="quote_request_status_replied" type="phrase">Yanıtlandı</item>
+</language>

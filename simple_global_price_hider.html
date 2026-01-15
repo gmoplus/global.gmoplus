@@ -1,0 +1,38 @@
+<!-- Global Category Price Hider - Basit CSS Çözümü -->
+<style>
+/* Global kategorisinde fiyat alanlarını gizle */
+body[class*="global"] .field-price,
+body[class*="global"] [name*="price"],
+body[class*="global"] [class*="price"],
+.global-category .field-price,
+.global-category [name*="price"],
+.global-category [class*="price"] {
+    display: none !important;
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    // URL kontrolü
+    if (window.location.href.indexOf("global") > -1) {
+        $("body").addClass("global-category");
+        
+        // Bildirim ekle
+        var notice = "<div style=\"background: #e8f5e8; border: 1px solid #4caf50; padding: 15px; margin: 10px 0; border-radius: 5px; color: #2e7d32; font-weight: bold;\">" +
+                    "<strong>🌍 Global Kategori:</strong> Bu alanda ithalat/ihracat talepleri için ilan veriyorsunuz. " +
+                    "Firmalar sizden fiyat teklifi bekliyor, bu yüzden fiyat alanı gizlenmiştir." +
+                    "</div>";
+        
+        $("form").prepend(notice);
+    }
+    
+    // Kategori seçimi dinle
+    $(document).on("change", "select", function() {
+        if ($(this).find("option:selected").text().toLowerCase().indexOf("global") > -1) {
+            $("body").addClass("global-category");
+        } else {
+            $("body").removeClass("global-category");
+        }
+    });
+});
+</script>

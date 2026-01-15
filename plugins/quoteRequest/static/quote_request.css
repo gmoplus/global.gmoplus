@@ -1,0 +1,58 @@
+.quote-request-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.quote-request-btn {
+    background: #28a745;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.quote-request-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.quote-request-btn i {
+    margin-right: 8px;
+}
+
+#quote-form-modal .modal-dialog {
+    max-width: 600px;
+}
+
+#quote-form-modal .form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+#quote-form-modal .form-control {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#quote-form-modal .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.quote-request-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.quote-request-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+}

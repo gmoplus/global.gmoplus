@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+    <item key="quote_request_title" type="phrase">Request Quote</item>
+    <item key="quote_request_button" type="phrase">Get Quote</item>
+    <item key="quote_request_name" type="phrase">Full Name</item>
+    <item key="quote_request_email" type="phrase">Email Address</item>
+    <item key="quote_request_phone" type="phrase">Phone Number</item>
+    <item key="quote_request_position" type="phrase">Position/Authority</item>
+    <item key="quote_request_description" type="phrase">Description</item>
+    <item key="quote_request_file" type="phrase">Upload File (Optional)</item>
+    <item key="quote_request_send" type="phrase">Send Request</item>
+    <item key="quote_request_success" type="phrase">Your quote request has been sent successfully!</item>
+    <item key="quote_request_error" type="phrase">An error occurred while sending your request.</item>
+    <item key="quote_request_login_required" type="phrase">Please login to request a quote.</item>
+    
+    <!-- Admin Phrases -->
+    <item key="quote_requests_menu" type="phrase">Quote Requests</item>
+    <item key="quote_requests_title" type="phrase">Quote Requests Management</item>
+    <item key="quote_request_view" type="phrase">View Quote Request</item>
+    <item key="quote_request_reply" type="phrase">Reply to Quote Request</item>
+    <item key="quote_request_delete" type="phrase">Delete Quote Request</item>
+    <item key="quote_request_status_new" type="phrase">New</item>
+    <item key="quote_request_status_viewed" type="phrase">Viewed</item>
+    <item key="quote_request_status_replied" type="phrase">Replied</item>
+</language>

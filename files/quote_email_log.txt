@@ -1,0 +1,36 @@
+2025-07-10 12:46:47 - İlan ID: 52, Talep Eden: email deneme (alpgurle1@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-10 14:34:28 - İlan ID: 52, Talep Eden: a (alpgurle1@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-10 14:49:45 - İlan ID: 52, Talep Eden: denemeeeee (alpgurle1@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-10 15:07:49 - İlan ID: 52, Talep Eden: a (alpgurle1@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-11 08:08:50 - İlan ID: 52, Talep Eden: a (alpgurle1@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-11 08:30:38 - İlan ID: 52, Talep Eden: b (alpgurle1@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-11 09:06:48 - İlan ID: 10765, Talep Eden: asdbbb (alpgurle2@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-11 09:16:35 - İlan ID: 10765, Talep Eden: h (alpgurle2@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+
+2025-07-11 13:30:12 - İlan ID: 10765, Talep Eden: aaaaaaaaaaaaaaa (alpgurle2@gmail.com)
+  İlan Sahibi Email: Başarısız
+  Admin Email: Başarısız
+

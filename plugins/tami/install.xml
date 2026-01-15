@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="tami">
+    <title>TAMI Sanal POS</title>
+    <description>TAMI (T. Garanti Bankası A.Ş.) Sanal POS ödeme sistemi entegrasyonu</description>
+    <author>GMO Plus Team</author>
+    <owner>GMO Plus</owner>
+    <version>1.0.0</version>
+    <date>06.01.2025</date>
+    <class>Tami</class>
+    <compatible>4.0.9,4.10.0, 4.11.0, 4.12.0</compatible>
+
+    <files>
+        <file>rlTami.class.php</file>
+        <file>rlTamiGateway.class.php</file>
+        <file>rlTamiHosted.class.php</file>
+        <file>rlInstall.class.php</file>
+        <file>form.tpl</file>
+        <file>callback.php</file>
+        <file>success.php</file>
+        <file>fail.php</file>
+        <file>admin/tpl/config.tpl</file>
+        <file>i18n/tr.json</file>
+        <file>i18n/en.json</file>
+        <file>static/tami.css</file>
+        <file>static/tami.js</file>
+    </files>
+
+    <install><![CDATA[
+        $GLOBALS['reefless']->loadClass('Install', null, 'tami');
+        $GLOBALS['rlInstall']->install();
+    ]]></install>
+
+    <hooks>
+        <hook version="1.0.0" name="phpGetPaymentGateways"><![CDATA[]]></hook>
+        <hook version="1.0.0" name="loadPaymentForm"><![CDATA[]]></hook>
+        <hook version="1.0.0" name="ajaxRequest"><![CDATA[]]></hook>
+        <hook version="1.0.0" name="apTplPaymentGatewaysBottom"><![CDATA[]]></hook>
+    </hooks>
+
+    <phrases>
+        <phrase key="tami_payment" module="common"><![CDATA[TAMI Sanal POS]]></phrase>
+        <phrase key="tami_module" module="common"><![CDATA[TAMI Sanal POS Modülü]]></phrase>
+        <phrase key="tami_merchant_id" module="common"><![CDATA[Merchant ID]]></phrase>
+        <phrase key="tami_merchant_key" module="common"><![CDATA[Merchant Key]]></phrase>
+        <phrase key="tami_user_code" module="common"><![CDATA[User Code]]></phrase>
+        <phrase key="tami_test_mode" module="common"><![CDATA[Test Modu]]></phrase>
+        <phrase key="tami_card_number" module="common"><![CDATA[Kart Numarası]]></phrase>
+        <phrase key="tami_card_name" module="common"><![CDATA[Kart Sahibi]]></phrase>
+        <phrase key="tami_expiry_month" module="common"><![CDATA[Son Kullanım Ayı]]></phrase>
+        <phrase key="tami_expiry_year" module="common"><![CDATA[Son Kullanım Yılı]]></phrase>
+        <phrase key="tami_cvv" module="common"><![CDATA[CVV]]></phrase>
+        <phrase key="tami_installments" module="common"><![CDATA[Taksit Sayısı]]></phrase>
+        <phrase key="tami_submit" module="common"><![CDATA[Ödeme Yap]]></phrase>
+        <phrase key="tami_success" module="common"><![CDATA[Ödeme başarıyla tamamlandı]]></phrase>
+        <phrase key="tami_error" module="common"><![CDATA[Ödeme işlemi başarısız]]></phrase>
+        <phrase key="tami_3d_redirect" module="common"><![CDATA[3D Secure doğrulaması için yönlendiriliyorsunuz...]]></phrase>
+        <phrase key="payment_gateways+name+tami" module="common"><![CDATA[TAMI Sanal POS]]></phrase>
+    </phrases>
+
+    <config key="tami_merchant_id" name="Merchant ID" type="text" group="6"><![CDATA[]]></config>
+    <config key="tami_merchant_key" name="Merchant Key" type="text" group="6"><![CDATA[]]></config>
+    <config key="tami_user_code" name="User Code" type="text" group="6"><![CDATA[]]></config>
+    <config key="tami_test_mode" name="Test Mode" type="bool" group="6"><![CDATA[1]]></config>
+    <config key="tami_3d_secure" name="3D Secure" type="bool" group="6"><![CDATA[1]]></config>
+    <config key="tami_only_turkey" name="Sadece Türkiye IP'leri için göster" type="bool" group="6"><![CDATA[1]]></config>
+
+    <uninstall><![CDATA[
+        $GLOBALS['reefless']->loadClass('Install', null, 'tami');
+        $GLOBALS['rlInstall']->uninstall();
+    ]]></uninstall>
+</plugin> 

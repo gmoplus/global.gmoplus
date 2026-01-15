@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin>
+    <name>Global Category Price Hider</name>
+    <title>İthalat/İhracat Talebi Kategori Fiyat Gizleyici</title>
+    <description>İthalat/İhracat talebi kategorilerinde fiyat alanlarını gizler çünkü bu kategoriler teklif talep etmek için kullanılır</description>
+    <version>1.0.1</version>
+    <date>04.01.2025</date>
+    <author>GMO Plus Development Team</author>
+    <owner>Global.GMOPlus.com</owner>
+    <compatible>4.9.0</compatible>
+    <files>
+        <file>rlGlobalCategoryPriceHider.class.php</file>
+        <file>static/price_hider.css</file>
+        <file>static/price_hider.js</file>
+    </files>
+    <hooks>
+        <hook name="phpHeader" class="rlGlobalCategoryPriceHider" method="init" />
+        <hook name="phpFooter" class="rlGlobalCategoryPriceHider" method="addFooterJS" />
+    </hooks>
+    <phrases>
+        <phrase key="price_hider_title" module="common">Teklif Talebi Kategorisi</phrase>
+        <phrase key="price_hider_message" module="common">Bu kategoride fiyat belirtmeyin. Firmalar sizden teklif talep edecektir.</phrase>
+        <phrase key="price_hider_notice" module="common">Fiyat alanı gizlendi - Bu bir teklif talebi kategorisidir</phrase>
+    </phrases>
+    <configs>
+        <config key="request_categories" name="Teklif Talebi Kategorileri" description="Virgülle ayrılmış kategori path'leri" type="text" value="ithalat_talepleri,ihracat_talepleri,konsorsiyum_talep_teklif" />
+        <config key="hide_method" name="Gizleme Yöntemi" description="CSS veya JS ile gizleme" type="radio" value="both" values="css,js,both" />
+        <config key="show_message" name="Bilgilendirme Mesajı Göster" description="Kullanıcıya bilgilendirme mesajı gösterilsin mi?" type="radio" value="yes" values="yes,no" />
+    </configs>
+</plugin> 

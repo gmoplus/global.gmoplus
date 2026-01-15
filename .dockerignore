@@ -1,0 +1,12 @@
+.git
+node_modules
+docker-compose.yml
+docker-compose.*.yml
+.env
+.idea
+.vscode
+*.log
+tmp/*
+!tmp/.htaccess
+backup/*
+!backup/index.html

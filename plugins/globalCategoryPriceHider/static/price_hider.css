@@ -1,0 +1,225 @@
+/* Global Category Price Hider Plugin - CSS */
+/* İthalat/İhracat talebi kategorilerinde fiyat alanlarını gizler */
+
+/* Fiyat alanlarını gizle */
+.price-field-hidden {
+    display: none !important;
+}
+
+/* Fiyat ile ilgili tüm alanları gizle */
+.hide-price-fields .price-field,
+.hide-price-fields .price_field,
+.hide-price-fields input[name*="price"],
+.hide-price-fields input[name*="Price"],
+.hide-price-fields select[name*="price"],
+.hide-price-fields select[name*="Price"],
+.hide-price-fields textarea[name*="price"],
+.hide-price-fields textarea[name*="Price"],
+.hide-price-fields .f_price,
+.hide-price-fields .field_price,
+.hide-price-fields .listing_price,
+.hide-price-fields .price_input,
+.hide-price-fields .price_container,
+.hide-price-fields .price_selector,
+.hide-price-fields .price_type,
+.hide-price-fields .price_period,
+.hide-price-fields .price_currency,
+.hide-price-fields .price_negotiable,
+.hide-price-fields .price_on_call,
+.hide-price-fields .price_range,
+.hide-price-fields .price_min,
+.hide-price-fields .price_max,
+.hide-price-fields .price_from,
+.hide-price-fields .price_to,
+.hide-price-fields .price_unit,
+.hide-price-fields .price_tag,
+.hide-price-fields .price_label,
+.hide-price-fields .price_value,
+.hide-price-fields .price_display,
+.hide-price-fields .price_format,
+.hide-price-fields .price_option,
+.hide-price-fields .price_area,
+.hide-price-fields .price_section,
+.hide-price-fields .price_block,
+.hide-price-fields .price_wrapper,
+.hide-price-fields .price_group,
+.hide-price-fields .price_row,
+.hide-price-fields .price_col,
+.hide-price-fields .price_item,
+.hide-price-fields .price_element,
+.hide-price-fields .price_control,
+.hide-price-fields .price_form,
+.hide-price-fields .price_part,
+.hide-price-fields .price_component,
+.hide-price-fields .price_widget,
+.hide-price-fields .price_module,
+.hide-price-fields .price_panel,
+.hide-price-fields .price_box,
+.hide-price-fields .price_div,
+.hide-price-fields .price_span,
+.hide-price-fields .price_td,
+.hide-price-fields .price_th,
+.hide-price-fields .price_tr,
+.hide-price-fields .price_table,
+.hide-price-fields .price_list,
+.hide-price-fields .price_menu,
+.hide-price-fields .price_nav,
+.hide-price-fields .price_bar,
+.hide-price-fields .price_header,
+.hide-price-fields .price_footer,
+.hide-price-fields .price_content,
+.hide-price-fields .price_main,
+.hide-price-fields .price_sub,
+.hide-price-fields .price_extra,
+.hide-price-fields .price_additional,
+.hide-price-fields .price_optional,
+.hide-price-fields .price_required,
+.hide-price-fields .price_mandatory,
+.hide-price-fields .price_basic,
+.hide-price-fields .price_advanced,
+.hide-price-fields .price_simple,
+.hide-price-fields .price_complex,
+.hide-price-fields .price_standard,
+.hide-price-fields .price_custom,
+.hide-price-fields .price_default,
+.hide-price-fields .price_special,
+.hide-price-fields .price_normal,
+.hide-price-fields .price_regular,
+.hide-price-fields .price_premium,
+.hide-price-fields .price_discount,
+.hide-price-fields .price_sale,
+.hide-price-fields .price_offer,
+.hide-price-fields .price_deal,
+.hide-price-fields .price_promotion,
+.hide-price-fields .price_campaign,
+.hide-price-fields .price_package,
+.hide-price-fields .price_plan,
+.hide-price-fields .price_tier,
+.hide-price-fields .price_level,
+.hide-price-fields .price_grade,
+.hide-price-fields .price_class,
+.hide-price-fields .price_category,
+.hide-price-fields .price_type_select,
+.hide-price-fields .price_currency_select,
+.hide-price-fields .price_negotiable_checkbox,
+.hide-price-fields .price_on_call_radio,
+.hide-price-fields .price_range_inputs,
+.hide-price-fields .price_min_max,
+.hide-price-fields .price_from_to,
+.hide-price-fields .price_input_group,
+.hide-price-fields .price_form_group,
+.hide-price-fields .price_field_group,
+.hide-price-fields .price_control_group,
+.hide-price-fields .price_widget_group,
+.hide-price-fields .price_module_group,
+.hide-price-fields .price_panel_group,
+.hide-price-fields .price_section_group,
+.hide-price-fields .price_area_group,
+.hide-price-fields .price_container_group,
+.hide-price-fields .price_wrapper_group,
+.hide-price-fields .price_block_group,
+.hide-price-fields .price_row_group,
+.hide-price-fields .price_col_group,
+.hide-price-fields .price_item_group,
+.hide-price-fields .price_element_group,
+.hide-price-fields .price_component_group,
+.hide-price-fields .price_part_group,
+.hide-price-fields .price_unit_group,
+.hide-price-fields .price_tag_group,
+.hide-price-fields .price_label_group,
+.hide-price-fields .price_value_group,
+.hide-price-fields .price_display_group,
+.hide-price-fields .price_format_group,
+.hide-price-fields .price_option_group {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+    max-height: 0 !important;
+    max-width: 0 !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    z-index: -1 !important;
+}
+
+/* Bilgilendirme mesajı stili */
+.price-hider-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    animation: slideIn 0.5s ease-out;
+    border-left: 4px solid #4a90e2;
+}
+
+.price-hider-message::before {
+    content: "ℹ️ ";
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.price-hider-message .icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>') center/cover;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Animasyon */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .price-hider-message {
+        padding: 12px 15px;
+        font-size: 13px;
+        margin: 10px 0;
+    }
+}
+
+/* Debug modu (geliştirme amaçlı) */
+.price-hider-debug .price-field-hidden {
+    display: block !important;
+    background: #ffebee !important;
+    border: 2px dashed #f44336 !important;
+    opacity: 0.5 !important;
+    position: relative !important;
+}
+
+.price-hider-debug .price-field-hidden::after {
+    content: "GİZLENDİ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #f44336;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    z-index: 1000;
+} 

@@ -1,0 +1,336 @@
+<?php
+
+/******************************************************************************
+ *  
+ *  PROJECT: Flynax Classifieds Software - WordPress Bridge Extension
+ *  VERSION: 4.9.3
+ *  FILE: rlWordPressNews.class.php
+ *  
+ *  WordPress Blog Integration for Global.GMOPlus
+ *  Created by GMOPlus Technical Team - January 20, 2025
+ *  
+ ******************************************************************************/
+
+class rlWordPressNews extends rlNews
+{
+    private $wordpressBridgeUrl = 'https://blog.gmoplus.com/wp-content/plugins/flynax-bridge/request.php';
+    
+    /**
+     * WordPress API'den blog verilerini al
+     *
+     * @param  bool|int  $id              - News id (WordPress post ID)
+     * @param  bool      $page            - Page mode 
+     * @param  int       $pg              - Start position
+     * @param  bool      $getPhrases      - Add phrases to data or not
+     * @param  bool      $useCache        - Get news from cache at first
+     * @param  int       $categoryID      - Filter news by necessary category
+     * @param  bool      $orderByCategory - News by necessary category will be first
+     * @param  bool      $excludeID       - ID of article which must exclude from result
+     * @return array                      - List of news
+     */
+    public function get(
+        $id = false,
+        $page = false,
+        $pg = 1,
+        $getPhrases = true,
+        bool $useCache = true,
+        int $categoryID = 0,
+        bool $orderByCategory = false,
+        int $excludeID = 0
+    ): array {
+        global $rlCache, $config;
+        
+        // Cache key'i oluştur
+        $cacheKey = "wordpress_news_" . md5(json_encode(func_get_args()));
+        
+        if ($useCache && $config['cache']) {
+            $cached = $rlCache->get($cacheKey);
+            if ($cached) {
+                return $cached;
+            }
+        }
+        
+        try {
+            if ($id) {
+                // Tek post al
+                return $this->getSinglePost($id);
+            } else {
+                // Çoklu post al
+                return $this->getMultiplePosts($page, $pg, $categoryID, $excludeID, $cacheKey, $useCache);
+            }
+        } catch (Exception $e) {
+            // Hata durumunda eski sisteme geri dön
+            error_log("WordPress News Error: " . $e->getMessage());
+            return parent::get($id, $page, $pg, $getPhrases, false, $categoryID, $orderByCategory, $excludeID);
+        }
+    }
+    
+    /**
+     * Tek WordPress post'u al
+     */
+    private function getSinglePost($id): array 
+    {
+        // WordPress'ten tek post al
+        $url = $this->wordpressBridgeUrl . "?route=posts-manual-selection&post_ids=" . $id;
+        $response = $this->makeRequest($url);
+        
+        if (!empty($response['data'])) {
+            return $this->convertWordPressToFlynax($response['data'][0], true);
+        }
+        
+        return [];
+    }
+    
+    /**
+     * Çoklu WordPress postları al
+     */
+    private function getMultiplePosts($page, $pg, $categoryID, $excludeID, $cacheKey, $useCache): array
+    {
+        global $rlCache, $config;
+        
+        // WordPress kategori mapping'i
+        $categoryMapping = [
+            0 => '', // Tüm kategoriler
+            1 => '7-24-yemek', // Global kategorisi
+            2 => 'online',     // Online kategorisi  
+            3 => 'kesfet',     // Mobil kategorisi
+            4 => 'emlak',      // Emlak kategorisi (varsa)
+        ];
+        
+        $categorySlug = $categoryMapping[$categoryID] ?? '';
+        
+        if ($page) {
+            // Sayfa modu - pagination ile
+            $perPage = $config['news_at_page'] ?? 10;
+            $url = $this->wordpressBridgeUrl . "?route=posts-paginated";
+            $url .= "&per_page=" . $perPage;
+            $url .= "&page=" . $pg;
+            if ($categorySlug) {
+                $url .= "&category=" . $categorySlug;
+            }
+            
+            $response = $this->makeRequest($url);
+            $this->calc_news = $response['pagination']['total_posts'] ?? 0;
+            $posts = $response['data'] ?? [];
+        } else {
+            // Blok modu - sınırlı sayıda post
+            $limit = $config['news_block_news_in_block'] ?? 8;
+            
+            if ($categorySlug) {
+                // Kategoriye göre al
+                $url = $this->wordpressBridgeUrl . "?route=posts-by-category";
+                $url .= "&category=" . $categorySlug;
+                $url .= "&limit=" . $limit;
+            } else {
+                // Tüm postları al
+                $url = $this->wordpressBridgeUrl . "?route=all-posts";
+                $url .= "&limit=" . $limit;
+            }
+            
+            $response = $this->makeRequest($url);
+            $this->calc_news = $response['total'] ?? count($response['data'] ?? []);
+            $posts = $response['data'] ?? [];
+        }
+        
+        // WordPress formatını Flynax formatına çevir
+        $convertedPosts = [];
+        foreach ($posts as $post) {
+            if ($excludeID && $post['id'] == $excludeID) {
+                continue; // Hariç tutulacak post'u atla
+            }
+            
+            $convertedPosts[] = $this->convertWordPressToFlynax($post);
+        }
+        
+        // Cache'e kaydet
+        if ($useCache && $config['cache']) {
+            $rlCache->set($cacheKey, $convertedPosts, 1800); // 30 dakika cache
+        }
+        
+        return $convertedPosts;
+    }
+    
+    /**
+     * WordPress API'ye istek gönder
+     */
+    private function makeRequest($url): array
+    {
+        $response = @file_get_contents($url);
+        if ($response === false) {
+            throw new Exception("WordPress API isteği başarısız: " . $url);
+        }
+        
+        $data = json_decode($response, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Exception("WordPress API JSON parse hatası");
+        }
+        
+        // API response yapısını kontrol et
+        if (isset($data['data']['data'])) {
+            // Nested structure: {"data":{"data":[...]}}
+            return $data['data'];
+        } elseif (isset($data['data'])) {
+            // Direct structure: {"data":[...]}
+            return $data;
+        }
+        
+        return [];
+    }
+    
+    /**
+     * WordPress post formatını Flynax news formatına çevir
+     */
+    private function convertWordPressToFlynax($post, $isSingle = false): array
+    {
+        // Flynax news table yapısına uygun format
+        $flynaxPost = [
+            'ID' => $post['id'] ?? 0,
+            'Key' => $post['id'] ?? 0,
+            'title' => $post['title'] ?? 'Başlık Yok',
+            'content' => $post['excerpt'] ?? '',
+            'Date' => $post['post_date'] ?? date('Y-m-d H:i:s'),
+            'Views' => $post['comment_count'] ?? 0,
+            'Picture' => $this->extractImageName($post['img_full'] ?? ''),
+            'Status' => 'active',
+            'Category_ID' => $this->mapWordPressCategoryToFlynax($post['categories'] ?? []),
+            'Category_Path' => $this->getFirstCategorySlug($post['categories'] ?? []),
+            'Category_Name' => $this->getFirstCategoryName($post['categories'] ?? []),
+            'Path' => $this->generatePath($post['title'] ?? '', $post['id'] ?? 0),
+            'meta_description' => $this->truncate($post['excerpt'] ?? '', 160),
+            'meta_keywords' => $this->generateKeywords($post['tags'] ?? []),
+            
+            // WordPress'e özgü ekstra alanlar
+            'wp_url' => $post['url'] ?? '',
+            'wp_img_full' => $post['img_full'] ?? '',
+            'wp_img_thumb' => $post['img'] ?? '',
+            'wp_categories' => $post['categories'] ?? [],
+            'wp_tags' => $post['tags'] ?? [],
+            'wp_author' => $post['author_username'] ?? '',
+            'wp_author_display' => $post['display_name'] ?? '',
+        ];
+        
+        return $flynaxPost;
+    }
+    
+    /**
+     * WordPress kategorilerini Flynax kategori ID'sine map et
+     */
+    private function mapWordPressCategoryToFlynax($categories): int
+    {
+        if (empty($categories)) {
+            return 0;
+        }
+        
+        $firstCategory = $categories[0];
+        $slug = $firstCategory['slug'] ?? '';
+        
+        $mapping = [
+            '7-24-yemek' => 1, // Global
+            'online' => 2,     // Online  
+            'kesfet' => 3,     // Mobil
+            'emlak' => 4,      // Emlak
+        ];
+        
+        return $mapping[$slug] ?? 0;
+    }
+    
+    /**
+     * İlk kategorinin slug'ını al
+     */
+    private function getFirstCategorySlug($categories): string
+    {
+        return !empty($categories) ? ($categories[0]['slug'] ?? '') : '';
+    }
+    
+    /**
+     * İlk kategorinin adını al  
+     */
+    private function getFirstCategoryName($categories): string
+    {
+        return !empty($categories) ? ($categories[0]['name'] ?? '') : '';
+    }
+    
+    /**
+     * URL'den görsel adını çıkar
+     */
+    private function extractImageName($imageUrl): string
+    {
+        if (empty($imageUrl)) {
+            return '';
+        }
+        
+        // https://blog.gmoplus.com/wp-content/uploads/2025/06/image.jpg -> image.jpg
+        return basename($imageUrl);
+    }
+    
+    /**
+     * Post başlığından URL path oluştur
+     */
+    private function generatePath($title, $id): string
+    {
+        $path = strtolower(trim($title));
+        $path = preg_replace('/[^a-z0-9\s-]/', '', $path);
+        $path = preg_replace('/[\s-]+/', '-', $path);
+        $path = trim($path, '-');
+        
+        return $path . '-' . $id;
+    }
+    
+    /**
+     * Metni belirli uzunlukta kes
+     */
+    private function truncate($text, $length = 160): string
+    {
+        $text = strip_tags($text);
+        return strlen($text) > $length ? substr($text, 0, $length) . '...' : $text;
+    }
+    
+    /**
+     * Tag'lerden keywords oluştur
+     */
+    private function generateKeywords($tags): string
+    {
+        if (empty($tags)) {
+            return '';
+        }
+        
+        $keywords = [];
+        foreach ($tags as $tag) {
+            $keywords[] = $tag['name'] ?? '';
+        }
+        
+        return implode(', ', array_filter($keywords));
+    }
+    
+    /**
+     * "Hepsini Göster" URL'i oluştur - Kategori bazlı unlimited
+     */
+    public function getViewAllUrl($categoryID = 0): string
+    {
+        global $reefless;
+        
+        if ($categoryID) {
+            // Kategoriye özel "Hepsini Göster" 
+            $categoryMapping = [
+                1 => 'global',
+                2 => 'online', 
+                3 => 'mobil',
+                4 => 'emlak',
+            ];
+            
+            $page = $categoryMapping[$categoryID] ?? 'news';
+            return $reefless->getPageUrl($page, ['showall' => '1']);
+        } else {
+            // Genel "Tümünü Göster"
+            return $reefless->getPageUrl('news', ['showall' => 'all']);
+        }
+    }
+    
+    /**
+     * Kategori bazlı tüm postları al (Hepsini Göster için)
+     */
+    public function getAllCategoryPosts($categoryID = 0): array
+    {
+        return $this->get(false, false, 1, true, true, $categoryID, false, 0);
+    }
+} 

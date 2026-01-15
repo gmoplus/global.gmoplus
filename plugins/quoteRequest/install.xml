@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="quoteRequest">
+    <title>Quote Request System</title>
+    <description>Allows users to request quotes from listing owners with file upload support</description>
+    <author>GMOPlus Developer</author>
+    <owner>GMOPlus</owner>
+    <version>1.0.0</version>
+    <date>10.07.2025</date>
+    <class>rlQuoteRequest</class>
+    <compatible>4.9.3</compatible>
+
+    <files>
+        <file>rlQuoteRequest.class.php</file>
+        <file>admin/quote_requests.inc.php</file>
+        <file>admin/quote_requests.tpl</file>
+        <file>quote_form.tpl</file>
+        <file>quote_button.tpl</file>
+        <file>static/quote_request.css</file>
+        <file>static/quote_request.js</file>
+        <file>languages/English(EN).xml</file>
+        <file>languages/Turkish(TR).xml</file>
+    </files>
+
+    <install><![CDATA[
+        $GLOBALS['reefless']->loadClass('rlQuoteRequest', null, 'quoteRequest');
+        $GLOBALS['rlQuoteRequest']->install();
+    ]]></install>
+
+    <hooks>
+        <hook version="1.0.0" name="listingDetailsBottom" class="rlQuoteRequest"><![CDATA[]]></hook>
+        <hook version="1.0.0" name="ajaxRequest" class="rlQuoteRequest"><![CDATA[]]></hook>
+    </hooks>
+
+    <configs key="quoteRequest" name="Quote Request Settings">
+        <config key="quote_request_enabled" name="Enable Quote Requests" type="bool"><![CDATA[1]]></config>
+        <config key="quote_request_email" name="Admin Email for Notifications" type="text"><![CDATA[admin@gmoplus.com]]></config>
+        <config key="quote_request_max_file_size" name="Max File Size (MB)" type="text" validate="number"><![CDATA[5]]></config>
+        <config key="quote_request_allowed_files" name="Allowed File Types" type="text"><![CDATA[pdf,doc,docx,xls,xlsx]]></config>
+    </configs>
+
+    <phrases>
+        <phrase key="quote_request_title" module="common"><![CDATA[Request Quote]]></phrase>
+        <phrase key="quote_request_button" module="common"><![CDATA[Get Quote]]></phrase>
+        <phrase key="quote_request_name" module="common"><![CDATA[Full Name]]></phrase>
+        <phrase key="quote_request_email" module="common"><![CDATA[Email Address]]></phrase>
+        <phrase key="quote_request_phone" module="common"><![CDATA[Phone Number]]></phrase>
+        <phrase key="quote_request_position" module="common"><![CDATA[Position/Authority]]></phrase>
+        <phrase key="quote_request_description" module="common"><![CDATA[Description]]></phrase>
+        <phrase key="quote_request_file" module="common"><![CDATA[Upload File (Optional)]]></phrase>
+        <phrase key="quote_request_send" module="common"><![CDATA[Send Request]]></phrase>
+        <phrase key="quote_request_success" module="common"><![CDATA[Your quote request has been sent successfully!]]></phrase>
+        <phrase key="quote_request_error" module="common"><![CDATA[An error occurred while sending your request.]]></phrase>
+        <phrase key="quote_request_login_required" module="common"><![CDATA[Please login to request a quote.]]></phrase>
+    </phrases>
+
+    <aPages>
+        <aPage key="quote_requests" name="Quote Requests" controller="quote_requests" deny=""><![CDATA[]]></aPage>
+    </aPages>
+
+    <uninstall><![CDATA[
+        $GLOBALS['reefless']->loadClass('rlQuoteRequest', null, 'quoteRequest');
+        $GLOBALS['rlQuoteRequest']->uninstall();
+    ]]></uninstall>
+</plugin>
