@@ -26,7 +26,8 @@ tmp/upload/*
 tmp/compile*
 
 # Exclude large zip/binary files to stay within GitHub limits (especially well-known.zip 331MB)
-
+well-known.zip
+backup/
 *.tar.gz
 *.mmdb
 
