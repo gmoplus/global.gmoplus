@@ -19,17 +19,26 @@ access_log
 # Application Specific
 # Config is now committed for Coolify deployment
 
-# Exclude cache and temp
-tmp/cache*
+# Exclude cache and temp contents but keep .gitkeep
+tmp/cache*/*
+!tmp/cache*/.gitkeep
 tmp/upload/*
 !tmp/upload/.htaccess
-tmp/compile*
+!tmp/upload/.gitkeep
+tmp/compile/*
+!tmp/compile/.gitkeep
+tmp/aCompile/*
+!tmp/aCompile/.gitkeep
+tmp/errorLog/*
+!tmp/errorLog/.gitkeep
 
-# Exclude large zip/binary files to stay within GitHub limits (especially well-known.zip 331MB)
+# Exclude large zip/binary/sql files to stay within GitHub limits
 well-known.zip
 backup/
 *.tar.gz
 *.mmdb
+gmoplus_global.sql
+gmoplus_global.zip
 
 # We include vendor and files because they are within limits (Total ~330MB, no file > 100MB except zips)
 # Vendor (~68MB)

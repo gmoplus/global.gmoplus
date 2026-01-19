@@ -45,13 +45,14 @@ COPY . /var/www/html/
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Create tmp directories and set permissions
+# Create tmp directories and set permissions (including aCompile for admin panel)
 RUN mkdir -p /var/www/html/tmp/errorLog \
     /var/www/html/tmp/compile \
+    /var/www/html/tmp/aCompile \
     /var/www/html/tmp/cache_1626966733 \
     /var/www/html/tmp/upload \
     /var/cpanel/php/sessions/ea-php82 \
-    && chmod -R 777 /var/www/html/tmp /var/cpanel/php/sessions/ea-php82 \
+    && chmod -R 777 /var/www/html/tmp /var/cpanel/php/sessions/ea-php82 /tmp \
     && chown -R www-data:www-data /var/www/html
 
 # Build cleanup
