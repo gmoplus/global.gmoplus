@@ -1,0 +1,12 @@
+{
+  "name": "flynax/listing-photo-upload",
+  "description": "Allows to upload image to listing by URL/Path",
+  "autoload": {
+    "psr-4": {
+      "Flynax\\Component\\": "src/"
+    }
+  },
+  "require": {
+    "ralouphie/mimey": "^2.1"
+  }
+}

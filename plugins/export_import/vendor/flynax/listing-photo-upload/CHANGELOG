@@ -1,0 +1,11 @@
+Flynax\Component\ListingImageUploader - ChangeLog
+===
+
+1.1.1 (07-10-2022)
+- Fix problem with wrong output image format
+
+1.1.0 (14-01-2022)
+- Add the ability to load images from Clouds
+
+1.0.0 (29-01-2021)
+- Initial public version
